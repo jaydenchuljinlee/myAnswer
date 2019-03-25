@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<definition name="layouts-tiles" 		template="/WEB-INF/jsp/egovframework/myAnwser/cmmn/default-layouts.jsp">
+		<put-attribute name="head" 		value="/WEB-INF/jsp/egovframework/myAnwser/cmmn/default-head.jsp" />
+		<put-attribute name="topbar"		value="/WEB-INF/jsp/egovframework/myAnwser/cmmn/default-topbar.jsp" />
+		<put-attribute name="nav"			value="/WEB-INF/jsp/egovframework/myAnwser/cmmn/default-nav.jsp" />
+		<put-attribute name="content"	value="" />
+		<put-attribute name="footer" 		value="/WEB-INF/jsp/egovframework/myAnwser/cmmn/default-footer.jsp" />
+	</definition>
+
+	<definition name="*/*.tiles"  			extends="layouts-tiles">
+		<put-attribute name="content" 	value="/WEB-INF/jsp/egovframework/myAnwser/{1}/{2}.jsp" />
+	</definition>
+	
+	<definition name="*/*.left"  			extends="layouts-tiles">
+		<put-attribute name="content" 	value="{1}/{2}.left-tiles" />
+	</definition>
+	
+	<definition name="*/*.left-tiles"  	template="/WEB-INF/jsp/egovframework/myAnwser/cmmn/left-layouts.jsp">
+		<put-attribute name="left" 			value="/WEB-INF/jsp/egovframework/myAnwser/{1}/{1}-left.jsp" />
+		<put-attribute name="content" 	value="/WEB-INF/jsp/egovframework/myAnwser/{1}/{2}.jsp" />
+	</definition>
+	
+	<!-- ajax 타일즈 -->
+	<definition name="*/*.ajax"  			template="/WEB-INF/jsp/egovframework/myAnwser/{1}/{2}.jsp"/>
+
+</tiles-definitions>

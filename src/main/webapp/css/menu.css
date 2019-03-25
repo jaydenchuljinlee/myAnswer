@@ -1,0 +1,118 @@
+.container {height:100%;position:relative;}
+
+/*--------------------------------------------------------------
+button
+--------------------------------------------------------------*/
+.resume {padding: 10px 30px 10px 30px;width:100%; background:#f5f5f5cc;}
+.resume > div{width:100%;bakcground:#f5f5f5cc;border:none;}
+.resume-photo:hover {background: #e8e5e5}
+
+/*--------------------------------------------------------------
+button
+--------------------------------------------------------------*/
+.card-body {margin-bottom:10px; background:#f5f5f5cc;border:none;}
+.card { background:#f5f5f5cc;border:none;}
+
+/*--------------------------------------------------------------
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+트레이닝 페이지 css 시작
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+검색바 css
+--------------------------------------------------------------*/
+.searchBar {margin:10px}
+.searchBar i{padding:5px;}
+
+/*--------------------------------------------------------------
+질문 작성 css
+--------------------------------------------------------------*/
+#completed_q div :nth-child(1) {float:left;width:5%;padding:10px;}
+#completed_q div :nth-child(2) {width:90%;padding:10px;background:#c2c4c7eb;margin-top:10px;}
+#completed_q div :nth-child(3) {width:5%;padding:10px;float:right;background:#c2c4c7eb;border:none;cursor:pointer;margin-top:10px;}
+
+
+/*--------------------------------------------------------------
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+포트폴리오 페이지 css 시작
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+--------------------------------------------------------------*/
+
+.portfolio {padding: 10px 30px 10px 30px;width:100%; border:5px solid #e8ecef;}
+
+/*--------------------------------------------------------------
+이미지 썸네일 등록 css
+--------------------------------------------------------------*/
+#img_insert > div:nth-child(2) {width:40%;margin:1%;}
+/* #img_insert > div:nth-child(3) {width:78%;height:500px;background:#c1bebe;color:#fff;margin:1%;}
+#img_insert > div:nth-child(3) > img {width:100%;height:100%;} */
+
+/* 이미지 슬라이드 */
+#img_insert > div:nth-child(3) {width:100%;border:3px solid #c1bebe;padding:10px;margin:1%;position:relative;}
+/* 슬릭 커스텀  */
+.slick-prev:before, .slick-next:before {color:black;}
+.slick-prev{left:0}
+.slick-next{right:0}
+/* 이미지박스,마우스오버 했을 때, 어두워지는 효과 */
+.image-wrapper {width:18.5%;height:100px;margin:1%;border:none;position:relative;}
+.image-wrapper > img{width:100%;height:100%;color:#000000;background:#c1bebe;position:absolute;}
+.darkBox {width:100%;height:100%;position:absolute;background:#000000;opacity:0;}
+.image-wrapper > .removeImg{width:100%;height:100%;color:#fff;position:absolute;text-align:center;opacity:0;}
+.image-wrapper > .removeImg > i{margin:0 auto;line-height:100px;vertical-align:middle;}
+.image-wrapper:hover .removeImg {opacity:1;}
+.image-wrapper:hover .darkBox {opacity:0.4;}
+
+/* 포폴 상세 페이지 */
+/* 포폴 상세 페이지 */
+#img_slider > div:nth-child(2){width:100%; height:100%;padding:10px;position:relative;}
+.big-slider > div {height:450px}
+.tab_contents > div > span{margin:10px;margin:0 auto}
+
+.slider-nav > .slick-list {margin:0px 20px}
+
+/* 포폴 탭메뉴 */
+ul.tabs {
+    float: left;
+    list-style: none;
+    height: 10%;
+    border:none;
+    width: 100%;
+    font-family:"dotum";
+}
+ul.tabs li {
+    float: left;
+    text-align:center;
+    cursor: pointer;
+    width:33%;
+    height: 100%;
+    padding:1%;
+    border: 1px solid #eee;
+    border-left: none;
+    font-weight: bold;
+    background: #fafafa;
+    overflow: hidden;
+    position: relative;
+}
+ul.tabs li.active {
+    background: #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+}
+
+.tab_connect {
+	margin:10px;
+}
+
+.pofol-list {width:30%;height:300px;margin:10px;position:relative;cursor:pointer;}
+
+.pofol-list > div:nth-child(1){width:100%;height:85%;background:#000000;position:absolute;text-align:center;vertical-align:middle;line-height:300px;z-index:1;opacity:0;}
+.pofol-list > img {width:100%;height:85%;border:1px solid #e4e1e1;position:relative;}
+.pofol-list > div:nth-child(3){width:100%;height:15%;border:1px solid #e4e1e1;background:#ebeff2;position:relative;}
+.pofol-list > div:nth-child(3) > span {font-family:Georgia;vertical-align:middle;line-height:45px;margin:10px;}
+
+.pofol-list:hover div:nth-child(1){opacity:0.3;}
+.pofol-list:hover div:nth-child(1) > i{color:#fff;}

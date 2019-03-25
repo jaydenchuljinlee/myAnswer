@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.myAnwser.dialog.service.impl.DialogMapper">
+	
+	<!-- 트레이닝 -->
+	<!--      -->
+	<select id="selectQuestionMap" parameterType="String" resultType="EgovMap">
+		SELECT	* 
+		FROM	han_training_question htq
+		WHERE	htq.id='lcj'
+	</select>
+	
+	<!-- 이력서 -->
+	<!--      -->
+	<select id="selectCarList" parameterType="map" resultType="egovMap">
+		SELECT	join_day
+					,	leave_day
+					,	company
+		FROM		han_career
+		WHERE	user_id = #{userId}
+	</select>
+
+	<select id="selectEduList" parameterType="map" resultType="egovMap">
+		SELECT	*
+		FROM		han_education
+		WHERE	user_id = #{userId}
+	</select>
+
+	<select id="selectActList" parameterType="map" resultType="egovMap">
+		SELECT	*
+		FROM		han_activity
+		WHERE	user_id = #{userId}
+	</select>
+
+	<select id="selectLicList" parameterType="map" resultType="egovMap">
+		SELECT	*
+		FROM		han_lic_awa
+		WHERE	user_id = #{userId}
+		AND			type = 'L'
+	</select>
+
+	<select id="selectAwaList" parameterType="map" resultType="egovMap">
+		SELECT	*
+		FROM		han_lic_awa
+		WHERE	user_id = #{userId}
+		AND			type = 'A'
+	</select>
+	
+	<select id="selectMemberList" parameterType="map" resultType="egovMap">
+		SELECT	id
+		FROM		han_user
+		WHERE	name = #{userName}
+	</select>
+	
+	<select id="selectCarDetailsOne" parameterType="map" resultType="egovMap">
+		SELECT	company
+					,	department
+					,	position
+					,	duty
+					,	content
+		FROM		han_career
+		WHERE	user_id = #{userId}
+		AND			company = #{resumeDetails} 
+	</select>
+
+	<select id="selectActDetailsOne" parameterType="map" resultType="egovMap">
+		SELECT	act_name
+					,	content
+		FROM		han_activity
+		WHERE	user_id = #{userId}
+		AND			act_name = #{resumeDetails}
+	</select>
+	
+	<select id="selectSchoolName" parameterType="map" resultType="String">
+		SELECT	school_name 
+		FROM		han_school_code
+		WHERE	school_code = #{schoolCode}
+	</select>
+	
+	<select id="selectDefList" parameterType="map" resultType="egovMap">
+		SELECT	* 
+		FROM		han_user
+		WHERE	id = #{userId}
+	</select>
+</mapper>

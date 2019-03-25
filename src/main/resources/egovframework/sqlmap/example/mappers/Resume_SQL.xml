@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.myAnwser.resume.service.impl.ResumeMapper">
+	
+	<!-- 학교리스트 -->
+	<select id="selectSchoolList" parameterType="map" resultType="egovMap">
+		SELECT	* 
+		FROM		han_school_code
+		WHERE	school_name LIKE '%${schoolNm}%'
+	</select>
+	<!-- 인적사항 업데이트 -->
+	<update id="updateResumeOne" parameterType="map">
+		UPDATE 	han_user
+			SET 		name	= #{name}
+						, birthday = #{birthday}
+						, gender = #{gender}
+						, phone = #{phone}
+						, address = #{address}
+						<if test="thumnail != null and thumnail !='' ">
+						, thumnail = #{thumnail}
+						</if>
+						, email = '${email}@${domain}'
+		WHERE 	id = #{userId}
+	</update>	
+	<!-- 희망 직군 입력 -->
+	<insert id="insertHopeOne" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="count" resultType="int" >
+			SELECT	COUNT(*)	
+			FROM		han_hope
+			WHERE	user_id = #{userId}
+		</selectKey>
+		
+		<if test="count == 0">
+			INSERT INTO han_hope 
+				( user_id
+				, hope_salary
+				, hope_class
+				, hope_workspace
+			) VALUES 
+				( #{userId}
+				, #{hopeSalary}
+				, #{hopeClass}
+				, #{hopeWerkspace} )
+		</if>
+		
+		<if test="count == 1">
+			UPDATE 	han_hope
+				SET 		hope_salary	= #{hopeSalary}
+							, hope_class = #{hopeClass}
+							, hope_workspace = #{hopeWerkspace}
+			WHERE 	user_id = #{userId}
+		</if>
+	</insert>
+	<!-- 학력 입력 -->
+	<insert id="insertEduOne" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="count" resultType="int" >
+			SELECT	COUNT(*)	
+			FROM		han_education
+			WHERE	school_code = #{schoolCode}
+			AND			user_id = #{userId}
+		</selectKey>
+		
+		<if test="count == 0">
+			INSERT INTO han_education 
+				( school_code
+				, user_id
+				, major
+				, attend_day
+				, graduate_day
+				, max_grade
+				, grade
+				, attend_type
+			) VALUES 
+				( #{schoolCode}
+				, #{userId}
+				, #{major}
+				, #{attendDay}
+				, #{graduateDay}
+				, #{maxGrade}
+				, #{grade}
+				, #{attendType} )
+		</if>
+		<if test="count == 1">
+			UPDATE 	han_education
+				SET 		attend_type	= #{attendType}
+							, major = #{major}
+							, max_grade = #{maxGrade}
+							, grade = #{grade}
+			WHERE 	school_code = #{schoolCode}
+				AND		user_id = #{userId}
+		</if>
+	</insert>
+	<!-- 자격증 입력 -->
+	<insert id="insertLicOne" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="count" resultType="int" >
+			SELECT	COUNT(*)	
+			FROM		han_lic_awa
+			WHERE	certificate = #{certificate}
+			AND			user_id = #{userId}
+			AND			type = 'L'
+		</selectKey>
+		
+		<if test="count == 0">
+			INSERT INTO han_lic_awa 
+				( certificate
+				, user_id
+				, publisher
+				, achieve_day
+				, type 
+			) VALUES 
+				( #{certificate}
+				, #{userId}
+				, #{publisher}
+				, #{achieveDay} 
+				, 'L' )
+		</if>
+		<if test="count == 1">
+			UPDATE 	han_lic_awa
+				SET 		publisher	= #{publisher}
+							, achieve_day = #{achieveDay}
+			WHERE 	certificate = #{certificate}
+				AND		user_id = #{userId}
+				AND		type = 'L'
+		</if>
+	</insert>
+	<!-- 경력 입력 -->
+	<insert id="insertCarOne" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="count" resultType="int" >
+			SELECT	COUNT(*)	
+			FROM		han_career
+			WHERE	join_day = #{joinDay}
+			AND			leave_day = #{leaveDay}
+			AND			user_id = #{userId}
+		</selectKey>
+		
+		<if test="count == 0">
+			INSERT INTO han_career 
+				( company
+				, user_id
+				, join_day
+				, leave_day
+				, department
+				, position
+				, duty
+				, salary
+			) VALUES 
+				( #{company}
+				, #{userId}
+				, #{joinDay}
+				, #{leaveDay}
+				, #{department}
+				, #{position}
+				, #{duty}
+				, #{salary} )
+		</if>
+		
+		<if test="count == 1">
+			UPDATE 	han_career
+				SET 		company = #{company}
+							, department = #{department}
+							, position = #{position}
+							, duty = #{duty}
+							, salary = #{salary}
+			WHERE	join_day = #{joinDay}
+			AND			leave_day = #{leaveDay}
+			AND			user_id = #{userId}
+		</if>
+	</insert>
+	<!-- 대외활동 입력 -->
+	<insert id="insertActOne" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="count" resultType="int" >
+			SELECT	COUNT(*)	
+			FROM		han_activity
+			WHERE	start_day = #{startDay}
+			AND			end_day = #{endDay}
+			AND			user_id = #{userId}
+		</selectKey>
+		
+		<if test="count == 0">
+			INSERT INTO han_activity 
+				( start_day
+				, end_day
+				, user_id
+				, activity_type
+				, agency
+				, act_name
+			) VALUES 
+				( #{startDay}
+				, #{endDay}
+				, #{userId}
+				, #{activityType}
+				, #{agency}
+				, #{actName} )
+		</if>
+		
+		<if test="count == 1">
+			UPDATE 	han_activity
+				SET 		activity_type = #{activityType}
+							, agency = #{agency}
+							, act_name = #{actName}
+			WHERE	start_day = #{startDay}
+			AND			end_day = #{endDay}
+			AND			user_id = #{userId}
+		</if>
+	</insert>
+	<!-- 수상경력 입력 -->
+	<insert id="insertAwaOne" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="count" resultType="int" >
+			SELECT	COUNT(*)	
+			FROM		han_lic_awa
+			WHERE	certificate = #{award}
+			AND			user_id = #{userId}
+			AND			type = 'A'
+		</selectKey>
+		
+		<if test="count == 0">
+			INSERT INTO han_lic_awa 
+				( certificate
+				, user_id
+				, publisher
+				, achieve_day
+				, type 
+			) VALUES 
+				( #{award}
+				, #{userId}
+				, #{publisher} 
+				, #{achieveDay} 
+				, 'A' )
+		</if>
+		
+		<if test="count == 1">
+			UPDATE 	han_lic_awa
+				SET 		publisher = #{publisher}
+							, achieve_day = #{achieveDay}
+			WHERE	certificate = #{award}
+			AND			user_id = #{userId}
+			AND			type = 'A'
+		</if>
+	</insert>
+	
+	<select id="selectCarList" parameterType="map" resultType="egovMap">
+		SELECT	join_day
+					,	leave_day
+					,	company
+		FROM		han_career
+		WHERE	user_id = #{userId}
+	</select>
+
+	<select id="selectEduList" parameterType="map" resultType="egovMap">
+		SELECT	*
+		FROM		han_education
+		WHERE	user_id = #{userId}
+	</select>
+
+	<select id="selectActList" parameterType="map" resultType="egovMap">
+		SELECT	*
+		FROM		han_activity
+		WHERE	user_id = #{userId}
+	</select>
+
+	<select id="selectLicList" parameterType="map" resultType="egovMap">
+		SELECT	*
+		FROM		han_lic_awa
+		WHERE	user_id = #{userId}
+		AND			type = 'L'
+	</select>
+
+	<select id="selectAwaList" parameterType="map" resultType="egovMap">
+		SELECT	*
+		FROM		han_lic_awa
+		WHERE	user_id = #{userId}
+		AND			type = 'A'
+	</select>
+	
+	<select id="selectMemberList" parameterType="map" resultType="egovMap">
+		SELECT	id
+		FROM		han_user
+		WHERE	name = #{userName}
+	</select>
+	
+	<select id="selectCarDetailsOne" parameterType="map" resultType="egovMap">
+		SELECT	company
+					,	department
+					,	position
+					,	duty
+					,	content
+		FROM		han_career
+		WHERE	user_id = #{userId}
+		AND			company = #{resumeDetails} 
+	</select>
+
+	<select id="selectActDetailsOne" parameterType="map" resultType="egovMap">
+		SELECT	act_name
+					,	content
+		FROM		han_activity
+		WHERE	user_id = #{userId}
+		AND			act_name = #{resumeDetails}
+	</select>
+	
+	<select id="selectSchoolName" parameterType="map" resultType="String">
+		SELECT	school_name 
+		FROM		han_school_code
+		WHERE	school_code = #{schoolCode}
+	</select>
+	
+	<select id="selectDefList" parameterType="map" resultType="egovMap">
+		SELECT	* 
+		FROM		han_user
+		WHERE	id = #{userId}
+	</select>
+	
+</mapper>
